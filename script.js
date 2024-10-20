@@ -18,6 +18,11 @@ function clear() {
   hasOperator = false;
 }
 
+function backspace() {
+  if ((firstOperand = "")) {
+  }
+}
+
 // add number depending on the current state of the calculator
 function addNumber(number) {
   if (display.textContent.length >= 36) {
@@ -41,7 +46,7 @@ function addNumber(number) {
 
 // calculate the result
 function equal(first, second, operator) {
-  if (isNaN(Number(first)) || isNaN(Number(second))) {
+  if (isNaN(first) || isNaN(second)) {
     return "Error";
   }
 
@@ -59,7 +64,11 @@ function equal(first, second, operator) {
 }
 
 function equalOperation() {
-  display.textContent = equal(firstOperand, secondOperand, operator);
+  if (!hasOperator) {
+    display.textContent = Number(firstOperand);
+  } else {
+    display.textContent = equal(firstOperand, secondOperand, operator);
+  }
   if (display.textContent === "Error") {
     display.style.color = "red";
   } else {
@@ -77,7 +86,11 @@ function evaluate(currentOperator) {
     hasResult = false;
     display.style.color = "dimgray";
   } else if (hasOperator) {
+    // calculate the first result while the second operand is entered
     firstOperand = equal(firstOperand, secondOperand, operator);
+    if (firstOperand === "Error") {
+      display.style.color = "red";
+    }
     secondOperand = "";
   }
   display.textContent += currentOperator;
@@ -95,6 +108,8 @@ function calculate(currentOperator) {
         //TODO
         clear();
         break;
+      case "BC":
+        backspace();
       case "=":
         equalOperation();
         break;
@@ -115,9 +130,9 @@ function calculate(currentOperator) {
 numberBtnContainer.addEventListener("click", (e) => {
   let number;
   // get the number from the button
-  if (e.target.className == "number-btn btn") {
+  if (e.target.className.includes("number-btn btn")) {
     number = Number(e.target.firstChild.textContent);
-  } else if (e.target.parentNode.className == "number-btn btn") {
+  } else if (e.target.parentNode.className.includes("number-btn btn")) {
     number = Number(e.target.textContent);
   }
 

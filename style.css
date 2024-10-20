@@ -72,7 +72,7 @@
 }
 
 .btn {
-  height: 18vh;
+  height: 16vh;
   width: 13vh;
   display: flex;
   justify-content: center;
@@ -91,4 +91,23 @@
   font-size: 8.8vh;
   cursor: pointer;
   background-color: skyblue;
+}
+
+.operator-btn {
+  height: 14vh;
+  width: 13vh;
+}
+
+.zero {
+  width: 28vh;
+}
+
+.decimal, .zero {
+  font-size: 7vh;
+  height: 8vh;
+}
+
+.zero:hover, .decimal:hover {
+  transform: scale(1.1);
+  font-size: 8.8vh;
 }

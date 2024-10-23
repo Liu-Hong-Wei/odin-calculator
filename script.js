@@ -77,6 +77,7 @@ function equalOperation() {
   }
   operator = "";
   secondOperand = "";
+  hasOperator = false;
   hasResult = true;
 }
 
@@ -87,9 +88,13 @@ function evaluate(currentOperator) {
     display.style.color = "dimgray";
   } else if (hasOperator) {
     // calculate the first result while the second operand is entered
-    firstOperand = equal(firstOperand, secondOperand, operator);
-    if (firstOperand === "Error") {
+    let tempResult = equal(firstOperand, secondOperand, operator);
+    if (tempResult === "Error") {
       display.style.color = "red";
+    } else {
+      equalOperation();
+      // in order to not replace the first result, display directly after it 
+      hasResult = false;
     }
     secondOperand = "";
   }
